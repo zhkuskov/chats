@@ -29,9 +29,25 @@
 				}
 			);
 		}
-
+		
+		function fnReceive() {
+			$.post(
+				"receive.php",
+				function(data) {
+					var x = data.substring(0,data.indexOf("|$|"));
+					var y = data.substring(data.indexOf("|$|")+3);
+					document.getElementById("htmlArea2").innerHTML = x;
+					document.getElementById("htmlArea1").innerHTML = y;
+				}
+			);
+			setTimeout(fnReceive, 500);
+		}
+		
+		function fnReceiveContinuously() {
+			setTimeout(fnReceive, 500);
+		}
 	</script>
-	<body>
+	<body onload="fnReceiveContinuously()">
 	<table>
 	<tr>
 	<td> <p id="htmlArea1"><b>Text 2</b> entered from the textbox below</p> </td>
